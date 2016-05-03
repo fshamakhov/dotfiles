@@ -40,6 +40,7 @@ values."
             shell-default-position 'bottom)
      spell-checking
      ;;syntax-checking
+     html
      version-control
      java
      javascript
@@ -296,7 +297,7 @@ layers configuration. You are free to put any user code."
   (define-key 'help-command (kbd "C-f") 'helm-apropos)
   (define-key 'help-command (kbd "r") 'helm-info-emacs)
   (define-key 'help-command (kbd "C-l") 'helm-locate-library)
-  ;; use helm to list eshell history 
+  ;; use helm to list eshell history
   (add-hook 'eshell-mode-hook
             #'(lambda ()
                 (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
@@ -349,6 +350,13 @@ layers configuration. You are free to put any user code."
 
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
+
+  (setq-default c-basic-offset 4)
+  (setq projectile-enable-caching nil)
+
+  (require 'whitespace)
+  (setq whitespace-style '(face empty tabs lines-tail trailing))
+  (global-whitespace-mode t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
