@@ -359,10 +359,21 @@ layers configuration. You are free to put any user code."
   (setq whitespace-style '(face empty tabs lines-tail trailing))
   (global-whitespace-mode t)
 
+  (setq projectile-globally-ignored-files
+        (append projectile-globally-ignored-files '(".o"
+                                                    "*Cint.cc"
+                                                    "*Cint.h"
+                                                    "GTAGS"
+                                                    "*.root"
+                                                    "*.wout"
+                                                    "*.par"
+                                                    )))
+
   (setq projectile-globally-ignored-directories
         (append projectile-globally-ignored-directories '(".git"
                                                           ".svn"
                                                           ".hg"
+                                                          "pars"
                                                           "build"
                                                           "build32"
                                                           "build64"
