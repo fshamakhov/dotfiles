@@ -340,6 +340,7 @@ layers configuration. You are free to put any user code."
   (setq projectile-switch-project-action 'helm-projectile-find-file)
   (add-to-list 'projectile-other-file-alist '("cc" "h")) ;; switch from cc -> h
   (add-to-list 'projectile-other-file-alist '("h" "cc")) ;; switch from h -> cc
+  ;(add-to-list 'projectile-other-file-alist '("h" "cxx")) ;; switch from cc -> h
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables c-c++-enable-clang-support t)))
 
@@ -357,6 +358,26 @@ layers configuration. You are free to put any user code."
   (require 'whitespace)
   (setq whitespace-style '(face empty tabs lines-tail trailing))
   (global-whitespace-mode t)
+
+  (setq projectile-globally-ignored-directories
+        (append projectile-globally-ignored-directories '(".git"
+                                                          ".svn"
+                                                          ".hg"
+                                                          "build"
+                                                          "build32"
+                                                          "build64"
+                                                          "build-x64"
+                                                          "build-x86"
+                                                          "build-64"
+                                                          "build-32"
+                                                          "build-vc11"
+                                                          "build-vc11-32"
+                                                          "build-vc11-64"
+                                                          "build-vc11-x86"
+                                                          "build-vc11-x64"
+                                                          )))
+
+  (projectile-global-mode 1)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
