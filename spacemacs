@@ -367,6 +367,11 @@ layers configuration. You are free to put any user code."
                                                     "*.root"
                                                     "*.wout"
                                                     "*.par"
+                                                    "hv_analysis"
+                                                    "merge_root_files"
+                                                    "noise_analysis"
+                                                    "temperature_analysis"
+                                                    "v12_analysis"
                                                     )))
 
   (setq projectile-globally-ignored-directories
