@@ -352,7 +352,7 @@ layers configuration. You are free to put any user code."
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
 
-  (setq-default c-basic-offset 4)
+  (setq-default c-basic-offset 2)
   (setq projectile-enable-caching nil)
 
   (require 'whitespace)
@@ -372,6 +372,9 @@ layers configuration. You are free to put any user code."
                                                     "noise_analysis"
                                                     "temperature_analysis"
                                                     "v12_analysis"
+                                                    ".tar.gz"
+                                                    ".png"
+                                                    ".fits"
                                                     )))
 
   (setq projectile-globally-ignored-directories
