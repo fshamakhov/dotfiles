@@ -355,9 +355,9 @@ layers configuration. You are free to put any user code."
   (setq-default c-basic-offset 2)
   (setq projectile-enable-caching nil)
 
-  (require 'whitespace)
-  (setq whitespace-style '(face empty tabs lines-tail trailing))
-  (global-whitespace-mode t)
+  ;(require 'whitespace)
+  ;(setq whitespace-style '(face empty tabs lines-tail trailing))
+  ;(global-whitespace-mode t)
 
   (setq projectile-globally-ignored-files
         (append projectile-globally-ignored-files '(".o"
@@ -397,6 +397,7 @@ layers configuration. You are free to put any user code."
                                                           )))
 
   (projectile-global-mode 1)
+  (setq-default indent-tabs-mode nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
