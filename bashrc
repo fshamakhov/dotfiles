@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+alias rm='rm -I'
+
 # color aliases
 alias sudo='sudo '
 alias ls='ls --color=always'
@@ -38,5 +40,5 @@ export VISUAL="vim"
 
 #root
 source /opt/root-6.04.16/bin/thisroot.sh
-alias thisroot5='source /opt/root-5.34.36/bin/thisroot.sh'
+#alias thisroot5='source /opt/root-5.34.36/bin/thisroot.sh'
 alias thisroot6='source /opt/root-6.04.16/bin/thisroot.sh'
