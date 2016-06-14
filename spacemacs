@@ -397,6 +397,7 @@ layers configuration. You are free to put any user code."
                                                           )))
 
   (projectile-global-mode 1)
+  (setq-default indent-tabs-mode nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
