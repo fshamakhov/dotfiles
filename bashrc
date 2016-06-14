@@ -41,4 +41,4 @@ HISTSIZE= HISTFILESIZE=
 export VISUAL="vim"
 
 #root
-source /opt/root-6.04.16/bin/thisroot.sh
+source /opt/root-6.06.04/bin/thisroot.sh
