@@ -17,7 +17,6 @@ alias pacman='pacman --color=always'
 alias dir='dir --color=always'
 
 # mount with {d,f}mask
-#alias mount ='mount -o dmask=022 -o fmask=133'
 alias mount='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
 # PS1
 INPUT_COLOR="\[\033[0m\]"
@@ -43,5 +42,3 @@ export VISUAL="vim"
 
 #root
 source /opt/root-6.04.16/bin/thisroot.sh
-#alias thisroot5='source /opt/root-5.34.36/bin/thisroot.sh'
-alias thisroot6='source /opt/root-6.04.16/bin/thisroot.sh'
