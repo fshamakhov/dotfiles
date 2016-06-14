@@ -16,6 +16,9 @@ alias gcc='gcc -fdiagnostics-color=always'
 alias pacman='pacman --color=always'
 alias dir='dir --color=always'
 
+# mount with {d,f}mask
+#alias mount ='mount -o dmask=022 -o fmask=133'
+alias mount='mount -o dmask=022 -o fmask=133 -o uid=1000 -o gid=1000'
 # PS1
 INPUT_COLOR="\[\033[0m\]"
 DIR_COLOR="\[\033[0;33m\]"
