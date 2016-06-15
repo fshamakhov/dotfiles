@@ -15,6 +15,9 @@ alias grep='grep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
 alias pacman='pacman --color=always'
 alias dir='dir --color=always'
+alias ssh='ssh '
+alias 106.irk.ru='-p 9916 baikal@106.irk.ru'
+alias rhl127pc='fed@159.93.76.242'
 
 # mount with {d,f}mask
 alias mount='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
