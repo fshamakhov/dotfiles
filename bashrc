@@ -17,7 +17,6 @@ alias pacman='pacman --color=always'
 alias dir='dir --color=always'
 alias ssh='ssh '
 alias 106.irk.ru='-p 9916 baikal@106.irk.ru'
-alias rhl127pc='fed@159.93.76.242'
 
 # mount with {d,f}mask
 alias mount='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
@@ -42,6 +41,7 @@ fi
 PS1="$LINE_COLOR$LINE_CORNER_1$LINE_VERTICAL $USER_NAME $DIR_COLOR$DIR \n$LINE_COLOR$LINE_CORNER_2$LINE_VERTICAL $SYMBOL $INPUT_COLOR"
 HISTSIZE= HISTFILESIZE=
 export VISUAL="vim"
+export BARSSYS="/home/fed/BARS/trunk"
 
 #root
 source /opt/root-6.06.04/bin/thisroot.sh
