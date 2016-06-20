@@ -357,8 +357,19 @@ layers configuration. You are free to put any user code."
 
   (require 'whitespace)
   (setq whitespace-style '(face empty tabs lines-tail trailing))
-                                        ;(global-whitespace-mode t)
+  (global-whitespace-mode t)
   (setq-default fill-column 80)
+  ;(setq fci-rule-color "darkblue")
+  ;(add-hook 'after-change-major-mode-hook 'fci-mode)
+  ;(define-globalized-minor-mode global-fci-mode fci-mode
+  ;  (lambda ()
+  ;    (if (and
+  ;         (not (string-match "^\*.*\*$" (buffer-name)))
+  ;         (not (eq major-mode 'dired-mode)))
+  ;        (fci-mode 1))))
+  ;(global-fci-mode 1)
+  ;(if buffer-file-name (fci-mode 1))
+
 
   (setq projectile-globally-ignored-files
         (append projectile-globally-ignored-files '(".o"
