@@ -45,7 +45,6 @@ HISTSIZE= HISTFILESIZE=
 export VISUAL="vim"
 export BARSSYS="/home/fed/BARS/trunk"
 export PATH=$PATH:
-export CDPATH=$HOME:..
 
 #root
 source /opt/root-6.06.04/bin/thisroot.sh
