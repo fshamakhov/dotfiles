@@ -357,7 +357,8 @@ layers configuration. You are free to put any user code."
 
   (require 'whitespace)
   (setq whitespace-style '(face empty tabs lines-tail trailing))
-  ;(global-whitespace-mode t)
+                                        ;(global-whitespace-mode t)
+  (setq-default fill-column 80)
 
   (setq projectile-globally-ignored-files
         (append projectile-globally-ignored-files '(".o"

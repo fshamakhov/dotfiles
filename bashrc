@@ -44,6 +44,7 @@ PS1="$LINE_COLOR$LINE_CORNER_1$LINE_VERTICAL $USER_NAME $DIR_COLOR$DIR \n$LINE_C
 HISTSIZE= HISTFILESIZE=
 export VISUAL="vim"
 export BARSSYS="/home/fed/BARS/trunk"
+export PATH="$PATH:"
 
 #root
 source /opt/root-6.06.04/bin/thisroot.sh
