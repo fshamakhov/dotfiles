@@ -28,7 +28,9 @@ values."
      emacs-lisp
      semantic
      git
-     c-c++
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-support t)
      github
      markdown
      php
@@ -40,11 +42,11 @@ values."
             shell-default-position 'bottom
             shell-enable-smart-eshell t)
      spell-checking
-     ;;syntax-checking
+     syntax-checking
      html
      version-control
      java
-     javascript
+     (javascript :variables javascript-disable-tern-port-files nil)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -250,6 +252,17 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (defun colorize-compilation-buffer ()
+    (toggle-read-only)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (toggle-read-only))
+  (require 'ansi-color)
+
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  (setq compilation-scroll-output t)
   )
 
 (defun dotspacemacs/user-config ()
@@ -262,6 +275,17 @@ you should place you code here."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (prefer-coding-system 'utf-8)
+  (set-language-environment 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+
+  (setq locale-coding-system 'utf-8)
+
+  (if (boundp 'buffer-file-coding-system)
+      (setq-default buffer-file-coding-system 'utf-8)
+    (setq default-buffer-file-coding-system 'utf-8))
   (require 'helm-config)
   (require 'helm-grep)
 
@@ -350,6 +374,7 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-h") 'backward-kill-word)
                                         ;(global-set-key (kbd "C-t") 'previous-line)
 
+  (global-set-key (kbd "M-g") 'kill-whole-line)
   (global-set-key (kbd "C-M-z") 'scroll-other-window)
   (global-set-key (kbd "C-M-v") 'scroll-other-window-down)
   (setq-default js2-basic-offset 2)
@@ -357,23 +382,16 @@ layers configuration. You are free to put any user code."
 
   (setq-default c-basic-offset 2)
   (setq projectile-enable-caching nil)
-
+  (setq ansi-color-names-vector
+        ["black" "red" "green" "yellow" "PaleBlue" "magenta" "cyan" "white"])
   (require 'whitespace)
   (setq whitespace-style '(face empty tabs lines-tail trailing))
   (global-whitespace-mode t)
   (setq-default fill-column 80)
-  ;(setq fci-rule-color "darkblue")
-  ;(add-hook 'after-change-major-mode-hook 'fci-mode)
-  ;(define-globalized-minor-mode global-fci-mode fci-mode
-  ;  (lambda ()
-  ;    (if (and
-  ;         (not (string-match "^\*.*\*$" (buffer-name)))
-  ;         (not (eq major-mode 'dired-mode)))
-  ;        (fci-mode 1))))
-  ;(global-fci-mode 1)
-  ;(if buffer-file-name (fci-mode 1))
 
-
+  (setq-default js2-basic-offset 2)
+  (setq-default js-indent-level 2)
+  
   (setq projectile-globally-ignored-files
         (append projectile-globally-ignored-files '(".o"
                                                     "*Cint.cc"
@@ -422,6 +440,7 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(exec-path-from-shell-arguments (quote ("-l")))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
