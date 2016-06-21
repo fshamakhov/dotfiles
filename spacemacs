@@ -42,7 +42,7 @@ values."
             shell-default-position 'bottom
             shell-enable-smart-eshell t)
      spell-checking
-     syntax-checking
+     ;syntax-checking
      html
      version-control
      java
@@ -422,6 +422,7 @@ layers configuration. You are free to put any user code."
   (setq-default indent-tabs-mode nil)
   (ansi-color-for-comint-mode-on)
   (setq compilation-scroll-output t)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

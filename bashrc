@@ -35,7 +35,7 @@ LINE_COLOR="\[\033[0;37m\]"
 USER_NAME="\[\033[0;32m\]\u"
 SYMBOL="\[\033[0;32m\]$"
 HOST_NAME="\[\033[0;35m\]\H"
-AT_SYMBOL="\[\033[1;30m\]@"
+AT_SYMBOL="\[\033[37m\]@"
 TIME_PS="\[\033[0;36m\]`date +%d.%m.%Y` \A"
 
 
