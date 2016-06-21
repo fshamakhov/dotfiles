@@ -37,7 +37,8 @@ values."
      org
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-enable-smart-eshell t)
      spell-checking
      ;;syntax-checking
      html
@@ -344,11 +345,13 @@ layers configuration. You are free to put any user code."
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables c-c++-enable-clang-support t)))
 
-  (global-set-key (kbd "C-z") ctl-x-map)
+  ;(global-set-key (kbd "C-z") ctl-x-map)
   (global-set-key (kbd "C-x C-h") help-map)
   (global-set-key (kbd "C-h") 'backward-kill-word)
                                         ;(global-set-key (kbd "C-t") 'previous-line)
 
+  (global-set-key (kbd "C-M-z") 'scroll-other-window)
+  (global-set-key (kbd "C-M-v") 'scroll-other-window-down)
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
 
