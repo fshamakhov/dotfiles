@@ -36,7 +36,7 @@ USER_NAME="\[\033[0;32m\]\u"
 SYMBOL="\[\033[0;32m\]$"
 HOST_NAME="\[\033[0;35m\]\H"
 AT_SYMBOL="\[\033[1;30m\]@"
-TIME_PS="\[\033[0;36m\]\A"
+TIME_PS="\[\033[0;36m\]`date +%d.%m.%Y` \A"
 
 
 if [[ ${EUID} == 0 ]]; then
@@ -51,3 +51,5 @@ export BARSSYS="/home/fed/BARS/trunk"
 
 #root
 source /opt/root-6.06.04/bin/thisroot.sh
+#steam
+alias steam=LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so steam'
