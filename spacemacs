@@ -252,17 +252,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (defun colorize-compilation-buffer ()
-    (toggle-read-only)
-    (ansi-color-apply-on-region (point-min) (point-max))
-    (toggle-read-only))
-  (require 'ansi-color)
-
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
-  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-  (setq compilation-scroll-output t)
   )
 
 (defun dotspacemacs/user-config ()
@@ -431,6 +420,8 @@ layers configuration. You are free to put any user code."
 
   (projectile-global-mode 1)
   (setq-default indent-tabs-mode nil)
+  (ansi-color-for-comint-mode-on)
+  (setq compilation-scroll-output t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -440,6 +431,12 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(comint-completion-addsuffix t)
+ '(comint-completion-autolist t)
+ '(comint-input-ignoredups t)
+ '(comint-scroll-show-maximum-output t)
+ '(comint-scroll-to-bottom-on-input t)
+ '(comint-scroll-to-bottom-on-output t)
  '(exec-path-from-shell-arguments (quote ("-l")))
  '(paradox-github-token t))
 (custom-set-faces
