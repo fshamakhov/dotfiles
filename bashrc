@@ -52,4 +52,4 @@ export BARSSYS="/home/fed/BARS/trunk"
 #root
 source /opt/root-6.06.04/bin/thisroot.sh
 #steam
-alias steam=LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so steam'
+alias steam=LD_PRELOAD="'/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so' steam"
