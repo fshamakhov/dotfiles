@@ -363,9 +363,9 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-h") 'backward-kill-word)
                                         ;(global-set-key (kbd "C-t") 'previous-line)
 
-  (global-set-key (kbd "M-g") 'kill-whole-line)
   (global-set-key (kbd "C-M-z") 'scroll-other-window)
   (global-set-key (kbd "C-M-v") 'scroll-other-window-down)
+  (global-set-key (kbd "C-h") 'backward-delete-char)
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
 
@@ -380,7 +380,7 @@ layers configuration. You are free to put any user code."
 
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
-  
+
   (setq projectile-globally-ignored-files
         (append projectile-globally-ignored-files '(".o"
                                                     "*Cint.cc"

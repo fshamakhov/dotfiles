@@ -21,6 +21,7 @@ alias ssh='ssh '
 alias 106.irk.ru='-p 9916 baikal@106.irk.ru'
 alias sshpass='sshpass '
 alias мы-из.рф='vsbph250@80.78.250.176'
+alias rh127pc='-Y fed@159.93.76.242'
 
 # mount with {d,f}mask
 alias mount='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
@@ -52,6 +53,6 @@ export VISUAL="vim"
 export BARSSYS="/home/fed/BARS/trunk"
 
 #root
-source /opt/root-6.06.04/bin/thisroot.sh
+source /opt/root-6.04.18/bin/thisroot.sh
 #steam
 alias steam=LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so steam'
