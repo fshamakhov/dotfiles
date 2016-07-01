@@ -54,3 +54,10 @@ export BARSSYS="/home/fed/BARS/trunk"
 source /opt/root-6.04.18/bin/thisroot.sh
 #steam
 alias steam=LD_PRELOAD="'/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so' steam"
+
+wrapper(){
+    start=$(date +%s)
+    "$@"
+    [ $(($(date +%s) - start)) -le 1 ] || notify-send "Notification" "Long\
+ running command \"$(echo $@)\" took $(($(date +%s) - start)) seconds to finish"
+}
