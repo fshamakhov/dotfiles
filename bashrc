@@ -9,7 +9,7 @@ alias rm='rm -I'
 
 # color aliases
 alias sudo='sudo '
-alias ls='ls --color=always'
+alias ls='TERM=ansi ls --color=always'
 alias dmesg='dmesg --color=always'
 alias grep='grep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
