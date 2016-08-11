@@ -374,7 +374,7 @@ layers configuration. You are free to put any user code."
   (setq ansi-color-names-vector
         ["black" "red" "green" "yellow" "PaleBlue" "magenta" "cyan" "white"])
   (require 'whitespace)
-  (setq whitespace-style '(face empty tabs lines-tail trailing))
+  (setq whitespace-style '(face empty tabs trailing))
   (global-whitespace-mode t)
   (setq-default fill-column 80)
 
