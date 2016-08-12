@@ -10,7 +10,7 @@ values."
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs-base
+   dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
@@ -23,32 +23,27 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     w3m
-     auto-completion
+     ;; auto-completion
      better-defaults
      emacs-lisp
-     semantic
      git
+     markdown
+     org
+     (shell :variables
+             shell-default-height 30
+             shell-default-position 'bottom)
+     ;; spell-checking
+     ;; syntax-checking
+     version-control
+     github
+     php
+     python
+     shell-script
+     gnus
+     (javascript :variables javascript-disable-tern-port-files nil)
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
-     github
-     markdown
-     php
-     python
-     shell-scripts
-     org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom
-            shell-enable-smart-eshell t)
-     spell-checking
-     ;syntax-checking
-     html
-     version-control
-     java
-     gnus
-     (javascript :variables javascript-disable-tern-port-files nil)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -254,18 +249,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  )
-
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place you code here."
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code."
   (prefer-coding-system 'utf-8)
   (set-language-environment 'utf-8)
   (set-default-coding-systems 'utf-8)
@@ -277,156 +260,17 @@ layers configuration. You are free to put any user code."
   (if (boundp 'buffer-file-coding-system)
       (setq-default buffer-file-coding-system 'utf-8)
     (setq default-buffer-file-coding-system 'utf-8))
-  (require 'helm-config)
-  (require 'helm-grep)
-
-  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-  ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-  (global-set-key (kbd "C-c h") 'helm-command-prefix)
-  (global-unset-key (kbd "C-x c"))
-  (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
-
-  (setq
-   helm-scroll-amount 4 ; scroll 4 lines other window using M-<next>/M-<prior>
-   helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
-   helm-split-window-in-side-p t ;; open helm buffer inside current window, not occupy whole other window
-   helm-candidate-number-limit 500 ; limit the number of displayed canidates
-   helm-ff-file-name-history-use-recentf t
-   helm-move-to-line-cycle-in-source t ; move to end or beginning of source when reaching top or bottom of source.
-   helm-buffers-fuzzy-matching t          ; fuzzy matching buffer names when non-nil
-                                        ; useful in helm-mini that lists buffers
-
-   )
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-  (global-set-key (kbd "C-c h o") 'helm-occur)
-  (helm-autoresize-mode t)
-  (global-set-key (kbd "C-c h C-c w") 'helm-wikipedia-suggest)
-
-  (global-set-key (kbd "C-c h x") 'helm-register)
-  (global-set-key (kbd "C-x r j") 'jump-to-register)
-
-  (define-key 'help-command (kbd "C-f") 'helm-apropos)
-  (define-key 'help-command (kbd "r") 'helm-info-emacs)
-  (define-key 'help-command (kbd "C-l") 'helm-locate-library)
-  ;; use helm to list eshell history
-  (add-hook 'eshell-mode-hook
-            #'(lambda ()
-                (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
-
-;;; Save current position to mark ring
-  (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
-
-  ;; show minibuffer history with Helm
-  (define-key minibuffer-local-map (kbd "M-p") 'helm-minibuffer-history)
-  (define-key minibuffer-local-map (kbd "M-n") 'helm-minibuffer-history)
-
-  (define-key global-map [remap find-tag] 'helm-etags-select)
-
-  (define-key global-map [remap list-buffers] 'helm-buffers-list)
-  (global-set-key (kbd "C-x C-b") 'ibuffer) ;; bind "C-x C-b" to ibuffer command
-
-  (helm-mode 1)
-
-  (add-hook 'python-mode-hook 'anaconda-mode)
-
-  (require 'semantic)
-  (semantic-mode)
-
-  (require 'ggtags)
-  (defun gtags-root-dir ()
-    "Returns GTAGS root directory or nil if doesn't exist."
-    (with-temp-buffer
-      (if (zerop (call-process "global" nil t nil "-pr"))
-          (buffer-substring (point-min) (1- (point-max)))
-        nil)))
-  (defun gtags-update ()
-    "Make GTAGS incremental update"
-    (call-process "global" nil nil nil "-u"))
-  (defun gtags-update-hook ()
-    (when (gtags-root-dir)
-      (gtags-update)))
-  (projectile-global-mode)
-  (setq projectile-completion-system 'helm)
-  (helm-projectile-on)
-  (setq projectile-switch-project-action 'helm-projectile-find-file)
-  (add-to-list 'projectile-other-file-alist '("cc" "h")) ;; switch from cc -> h
-  (add-to-list 'projectile-other-file-alist '("h" "cc")) ;; switch from h -> cc
-  ;(add-to-list 'projectile-other-file-alist '("h" "cxx")) ;; switch from cc -> h
-  (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables c-c++-enable-clang-support t)))
-
-  ;(global-set-key (kbd "C-z") ctl-x-map)
-  (global-set-key (kbd "C-x C-h") help-map)
-  (global-set-key (kbd "C-h") 'backward-kill-word)
-                                        ;(global-set-key (kbd "C-t") 'previous-line)
-
-  (global-set-key (kbd "C-M-z") 'scroll-other-window)
-  (global-set-key (kbd "C-M-v") 'scroll-other-window-down)
-  (global-set-key (kbd "C-h") 'backward-delete-char)
-  (setq-default js2-basic-offset 2)
-  (setq-default js-indent-level 2)
-
-  (setq-default c-basic-offset 2)
-  (setq projectile-enable-caching nil)
-  (setq ansi-color-names-vector
-        ["black" "red" "green" "yellow" "PaleBlue" "magenta" "cyan" "white"])
-  (require 'whitespace)
-  (setq whitespace-style '(face empty tabs trailing))
-  (global-whitespace-mode t)
   (setq-default fill-column 80)
 
-  (setq-default js2-basic-offset 2)
-  (setq-default js-indent-level 2)
-
-  (setq projectile-globally-ignored-files
-        (append projectile-globally-ignored-files '(".o"
-                                                    "*Cint.cc"
-                                                    "*Cint.h"
-                                                    "GTAGS"
-                                                    "*.root"
-                                                    "*.wout"
-                                                    "*.par"
-                                                    "hv_analysis"
-                                                    "merge_root_files"
-                                                    "noise_analysis"
-                                                    "temperature_analysis"
-                                                    "v12_analysis"
-                                                    ".tar.gz"
-                                                    ".png"
-                                                    ".fits"
-                                                    )))
-
-  (setq projectile-globally-ignored-directories
-        (append projectile-globally-ignored-directories '(".git"
-                                                          ".svn"
-                                                          ".hg"
-                                                          "pars"
-                                                          "build"
-                                                          "build32"
-                                                          "build64"
-                                                          "build-x64"
-                                                          "build-x86"
-                                                          "build-64"
-                                                          "build-32"
-                                                          "build-vc11"
-                                                          "build-vc11-32"
-                                                          "build-vc11-64"
-                                                          "build-vc11-x86"
-                                                          "build-vc11-x64"
-                                                          )))
-
-  (projectile-global-mode 1)
-  (setq-default indent-tabs-mode nil)
-  (ansi-color-for-comint-mode-on)
-  (setq compilation-scroll-output t)
-  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-  (require 'w3m-load)
+  (global-set-key (kbd "C-h") 'backward-delete-char)
+  (global-set-key (kbd "C-c h o") 'helm-occur)
+  (global-set-key (kbd "C-c h C-c w") 'helm-wikipedia-suggest)
+  (global-set-key (kbd "C-x C-b") 'ibuffer) ;; bind "C-x C-b" to ibuffer command
+  (global-unset-key (kbd "C-x c"))
+  (global-set-key (kbd "C-?") 'help-command)
+  (global-set-key (kbd "M-?") 'mark-paragraph)
+  (global-set-key (kbd "C-h") 'delete-backward-char)
+  (global-set-key (kbd "M-h") 'backward-kill-word)
   (setq w3m-home-page "http://www.google.com")
   ;; W3M Home Page
   (setq w3m-default-display-inline-images t)
@@ -439,8 +283,26 @@ layers configuration. You are free to put any user code."
   ;; Browse url function use w3m
   (setq w3m-view-this-url-new-session-in-background t)
   ;; W3M view url new session in background
+  (setq compilation-scroll-output t)
+  (ansi-color-for-comint-mode-on)
+  (setq-default c-basic-offset 2)
+  )
 
-  ;; Get email, and store in nnml
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
+  (add-hook 'eshell-mode-hook
+            #'(lambda ()
+                (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
+
+;;; Save current position to mark ring
+  (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
   (setq gnus-secondary-select-methods
         '(
           (nnimap "gmail"
@@ -459,29 +321,10 @@ layers configuration. You are free to put any user code."
         gnus-message-archive-group "[Gmail]/Sent Mail")
 
   ;; store email in ~/gmail directory
-  (setq nnml-directory "~/gmail")
-  (setq message-directory "~/gmail")
+  (setq nnml-directory "~/mail")
+  (setq message-directory "~/mail")
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(comint-completion-addsuffix t)
- '(comint-completion-autolist t)
- '(comint-input-ignoredups t)
- '(comint-scroll-show-maximum-output t)
- '(comint-scroll-to-bottom-on-input t)
- '(comint-scroll-to-bottom-on-output t)
- '(exec-path-from-shell-arguments (quote ("-l")))
- '(paradox-github-token t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
