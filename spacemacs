@@ -23,6 +23,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     w3m
      auto-completion
      better-defaults
      emacs-lisp
@@ -424,6 +425,21 @@ layers configuration. You are free to put any user code."
   (ansi-color-for-comint-mode-on)
   (setq compilation-scroll-output t)
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+  (require 'w3m-load)
+  (setq w3m-home-page "http://www.google.com")
+  ;; W3M Home Page
+  (setq w3m-default-display-inline-images t)
+  (setq w3m-default-toggle-inline-images t)
+  ;; W3M default display images
+  (setq w3m-command-arguments '("-cookie" "-F"))
+  (setq w3m-use-cookies t)
+  ;; W3M use cookies
+  (setq browse-url-browser-function 'w3m-browse-url)
+  ;; Browse url function use w3m
+  (setq w3m-view-this-url-new-session-in-background t)
+  ;; W3M view url new session in background
+
   ;; Get email, and store in nnml
   (setq gnus-secondary-select-methods
         '(
