@@ -46,6 +46,7 @@ values."
      html
      version-control
      java
+     gnus
      (javascript :variables javascript-disable-tern-port-files nil)
      )
    ;; List of additional packages that will be installed without being
@@ -423,6 +424,27 @@ layers configuration. You are free to put any user code."
   (ansi-color-for-comint-mode-on)
   (setq compilation-scroll-output t)
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  ;; Get email, and store in nnml
+  (setq gnus-secondary-select-methods
+        '(
+          (nnimap "gmail"
+                  (nnimap-address
+                   "imap.gmail.com")
+                  (nnimap-server-port 993)
+                  (nnimap-stream ssl))
+          ))
+
+  ;; Send email via Gmail:
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-default-smtp-server "smtp.gmail.com")
+
+  ;; Archive outgoing email in Sent folder on imap.gmail.com:
+  (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
+        gnus-message-archive-group "[Gmail]/Sent Mail")
+
+  ;; store email in ~/gmail directory
+  (setq nnml-directory "~/gmail")
+  (setq message-directory "~/gmail")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
