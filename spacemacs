@@ -314,14 +314,52 @@ before packages are loaded. If you are unsure, you should try in setting them in
                   (nnimap-authinfo-file "~/.authinfo.gpg"))
           ))
 
-  ;; Send email via Gmail:
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 465)
-
-  ;; Archive outgoing email in Sent folder on imap.gmail.com:
-  (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
-        gnus-message-archive-group "[Gmail]/Sent Mail")
+  (setq gnus-parameters
+      '(("nnimap fedor:INBOX"
+         (display . all)
+         (posting-style
+          (name "Fedor Shamakhov")
+          (address "fedor.shamakhov@gmail.com")
+          (signature-file "~/.signature-fedor"))
+         (expiry-target . delete))
+        ("nnimap fedor:[Gmail]/.*"
+         (display . all)
+         (posting-style
+          (name "Fedor Shamakhov")
+          (address "fedor.shamakhov@gmail.com")
+          (signature-file "~/.signature-fedor"))
+         (expiry-wait . never))
+        ("nnimap electron:INBOX"
+         (display . all)
+         (posting-style
+          (name "Fedor Shamakhov")
+          (address "electron160zeptocoulomb@gmail.com")
+          (signature-file "~/.signature-electron"))
+         (expiry-target . delete))
+        ("nnimap electron:[Gmail]/.*"
+         (display . all)
+         (posting-style
+          (name "Fedor Shamakhov")
+          (address "elector160zeptocoulomb@gmail.com")
+          (signature-file "~/.signature-electron"))
+         (expiry-wait . never))
+        ("nnimap yandex:INBOX"
+         (display . all)
+         (posting-style
+          (name "Fedor Shamakhov")
+          (address "shamakhov.fyodor@yandex.ru")
+          (signature-file "~/.signature-yandex"))
+         (expiry-target . delete))
+         ("nnimap yandex:[Yandex]/.*"
+          (display . all)
+          (posting-style
+           (name "Shamakhov Fyodor")
+           (address "shamakhov.fyodor@yandex.ru")
+           (signature-file "~/.signature-yandex"))
+          (expiry-wait . never))))
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq sendmail-program "/usr/bin/msmtp")
+  (setq gnus-permanently-visible-groups ".*")
 
   ;; store email in ~/gmail directory
   (setq nnml-directory "~/mail")
@@ -334,6 +372,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq browse-url-browser-function 'w3m-browse-url)
   (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
   (setq w3m-use-title-buffer-name t)
+  
   )
 
 (defun dotspacemacs/user-config ()
@@ -343,6 +382,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
   (require 'helm)
   (require 'w3m)
   (require 'w3m-load)
