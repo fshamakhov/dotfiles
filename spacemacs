@@ -290,6 +290,30 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq user-mail-address	"fedor.shamakhov@gmail.com"
         user-full-name	"Fedor Shamakhov")
 
+  (setq gnus-secondary-select-methods
+        '(
+          (nnimap "gmail"
+                  (nnimap-address "imap.gmail.com")
+                  (nnimap-server-port 993)
+                  (nnimap-stream ssl))
+          (nnimap "yandex"
+                  (nnimap-address "imap.yandex.ru")
+                  (nnimap-server-port 993)
+                  (nnimap-stream ssl))
+          ))
+
+  ;; Send email via Gmail:
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 465)
+
+  ;; Archive outgoing email in Sent folder on imap.gmail.com:
+  (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
+        gnus-message-archive-group "[Gmail]/Sent Mail")
+
+  ;; store email in ~/gmail directory
+  (setq nnml-directory "~/mail")
+  (setq message-directory "~/mail")
   )
 
 (defun dotspacemacs/user-config ()
@@ -307,26 +331,6 @@ you should place your code here."
   (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
-  (setq gnus-secondary-select-methods
-        '(
-          (nnimap "gmail"
-                  (nnimap-address
-                   "imap.gmail.com")
-                  (nnimap-server-port 993)
-                  (nnimap-stream ssl))
-          ))
-
-  ;; Send email via Gmail:
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-default-smtp-server "smtp.gmail.com")
-
-  ;; Archive outgoing email in Sent folder on imap.gmail.com:
-  (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
-        gnus-message-archive-group "[Gmail]/Sent Mail")
-
-  ;; store email in ~/gmail directory
-  (setq nnml-directory "~/mail")
-  (setq message-directory "~/mail")
 
   )
 
