@@ -286,6 +286,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq compilation-scroll-output t)
   (ansi-color-for-comint-mode-on)
   (setq-default c-basic-offset 2)
+
+  (setq user-mail-address	"fedor.shamakhov@gmail.com"
+        user-full-name	"Fedor Shamakhov")
+
   )
 
 (defun dotspacemacs/user-config ()
