@@ -318,6 +318,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; store email in ~/gmail directory
   (setq nnml-directory "~/mail")
   (setq message-directory "~/mail")
+
+  (setq browse-url-browser-function 'w3m-browse-url)
+  (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+  ;; optional keyboard short-cut
+  (global-set-key "\C-xm" 'browse-url-at-point)
+  (setq browse-url-browser-function 'w3m-browse-url)
+  (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+  (setq w3m-use-title-buffer-name t)
   )
 
 (defun dotspacemacs/user-config ()
@@ -339,6 +347,159 @@ you should place your code here."
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
 
+  (defun w3m-new-tab ()
+    (interactive)
+    (w3m-copy-buffer nil nil nil t))
+
+  (defun w3m-browse-url-new-tab (url &optional new-session)
+    (interactive)
+    (w3m-new-tab)
+    (w3m-browse-url url))
+
+  (setq browse-url-browser-function 'w3m-browse-url-new-tab)
+
+  (defun w3m-download-with-wget (loc)
+    (interactive "DSave to: ")
+    (let ((url (or (w3m-anchor) (w3m-image))))
+      (if url
+          (let ((proc (start-process "wget" (format "*wget %s*" url)
+                                     "wget" "--passive-ftp" "-nv"
+                                     "-P" (expand-file-name loc) url)))
+            (with-current-buffer (process-buffer proc)
+              (erase-buffer))
+            (set-process-sentinel proc (lambda (proc str)
+                                         (message "wget download done"))))
+        (message "Nothing to get"))))
+
+  (defun w3m-download-with-curl (loc)
+    (define-key w3m-mode-map "c"
+      (lambda (dir)
+        (interactive "DSave to: ")
+        (cd dir)
+        (start-process "curl" "*curl*" "curl.exe" "-O" "-s" (w3m-anchor)))))
+
+  (defun w3m-copy-url-at-point ()
+    (interactive)
+    (let ((url (w3m-anchor)))
+      (if (w3m-url-valid url)
+          (kill-new (w3m-anchor))
+        (message "No URL at point!"))))
+
+  (add-hook 'w3m-mode-hook
+            (lambda ()
+              (local-set-key "\M-W" 'w3m-copy-url-at-point)))
+
+  (defun google-suggest ()
+    "Search `w3m-search-default-engine' with google completion canditates."
+    (interactive)
+    (w3m-search w3m-search-default-engine
+                (completing-read  "Google search: "
+                                  (dynamic-completion-table
+                                   'google-suggest-aux))))
+
+  (defun google-suggest-aux (input)
+    (with-temp-buffer
+      (insert
+       (shell-command-to-string
+        (format "w3m -dump_source %s"
+                (shell-quote-argument
+                 (format
+                  "http://www.google.com/complete/search?hl=en&js=true&qu=%s"
+                  input)))))
+      (read
+       (replace-regexp-in-string "," ""
+                                 (progn
+                                   (goto-char (point-min))
+                                   (re-search-forward "\(" (point-max) t 2)
+                                   (backward-char 1)
+                                   (forward-sexp)
+                                   (buffer-substring-no-properties
+                                    (1- (match-end 0)) (point)))))))
+
+  ;;The following code binds f to a variant of isearch which finds links only. RET will exit isearch and open the new site.
+  (defvar w3m-isearch-links-do-wrap nil
+    "Used internally for fast search wrapping.")
+
+  (defun w3m-isearch-links (&optional regexp)
+    (interactive "P")
+    (let ((isearch-wrap-function
+     #'(lambda ()
+         (setq w3m-isearch-links-do-wrap nil)
+         (if isearch-forward
+       (goto-char (window-start))
+     (goto-char (window-end)))))
+    (isearch-search-fun-function
+     #'(lambda () 'w3m-isearch-links-search-fun))
+    post-command-hook   ;inhibit link echoing
+    do-follow-link
+    (isearch-mode-end-hook
+     (list  #'(lambda nil
+          (when (and (not isearch-mode-end-hook-quit)
+         (w3m-anchor))
+      (setq do-follow-link t))))))
+      (setq w3m-isearch-links-do-wrap t)
+      (isearch-mode t
+        regexp
+        ;; fast wrap
+        #'(lambda nil
+      (if isearch-success
+          (setq w3m-isearch-links-do-wrap t)
+        (when w3m-isearch-links-do-wrap
+          (setq w3m-isearch-links-do-wrap nil)
+          (setq isearch-forward
+          (not isearch-forward))
+          (isearch-repeat isearch-forward))))
+        t)
+      (when do-follow-link
+  (w3m-view-this-url))))
+
+  (defun w3m-isearch-links-search-fun (string &optional bound no-error)
+    (let* (isearch-search-fun-function
+     (search-fun  (isearch-search-fun))
+     error
+     (bound  (if isearch-forward
+           (max (or bound 0)
+          (window-end))
+         (min (or bound (window-start))
+        (window-start)))))
+      (condition-case err
+    (while (and (apply search-fun (list string bound))
+          (not (w3m-anchor (point)))))
+  (error (setq error err)))
+      (if error
+    (if (not no-error)
+        (signal (car error) (cadr error)))
+    (point))))
+
+  (defun my-w3m-switch-to-buffer (arg)
+    "Select the ARG'th w3m buffer."
+    (interactive "p")
+    (let (buf)
+      (if (= arg 0)
+          (setq arg 10)
+        (setq arg (1- arg)))
+      (if (and (> arg -1) (setq buf (nth arg (w3m-list-buffers))))
+          (progn
+            (switch-to-buffer buf)
+            (run-hooks 'w3m-select-buffer-hook)
+            (w3m-select-buffer-update))
+        (message "No such buffer!"))))
+  (add-hook 'w3m-mode-hook (lambda () (define-key w3m-mode-map (kbd "C-x b") nil)))
+
+  (add-hook 'w3m-mode-hook
+            (lambda ()
+              (dolist (bufnum '(0 1 2 3 4 5 6 7 8 9))
+                (let* ((bufstr (number-to-string bufnum))
+                       (funcname (concat "my-w3m-switch-to-buffer-" bufstr)))
+                  (eval `(defun ,(intern funcname) ()
+                           (interactive)
+                           (my-w3m-switch-to-buffer ,bufnum)))
+                  (define-key w3m-mode-map bufstr
+                    (intern funcname))))))
+  (defadvice w3m-modeline-title (around my-w3m-modeline-title)
+    "prevent original function from running; cleanup remnants"
+    (setq w3m-modeline-separator ""
+          w3m-modeline-title-string ""))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
