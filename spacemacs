@@ -24,6 +24,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; auto-completion
+     w3m
      better-defaults
      emacs-lisp
      git
@@ -32,7 +33,7 @@ values."
      (shell :variables
              shell-default-height 30
              shell-default-position 'bottom)
-     ;; spell-checking
+     spell-checking
      ;; syntax-checking
      version-control
      github
@@ -286,6 +287,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq compilation-scroll-output t)
   (ansi-color-for-comint-mode-on)
   (setq-default c-basic-offset 2)
+  (setq helm-buffers-fuzzy-matching t)
 
   (setq user-mail-address	"fedor.shamakhov@gmail.com"
         user-full-name	"Fedor Shamakhov")
@@ -295,11 +297,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
           (nnimap "gmail"
                   (nnimap-address "imap.gmail.com")
                   (nnimap-server-port 993)
-                  (nnimap-stream ssl))
+                  (nnimap-stream ssl)
+                  (nnir-search-engine imap))
           (nnimap "yandex"
                   (nnimap-address "imap.yandex.ru")
                   (nnimap-server-port 993)
-                  (nnimap-stream ssl))
+                  (nnimap-stream ssl)
+                  (nnir-search-engine imap))
           ))
 
   ;; Send email via Gmail:
@@ -323,6 +327,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'helm)
+  (require 'w3m)
+  (require 'w3m-load)
   (add-hook 'eshell-mode-hook
             #'(lambda ()
                 (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
