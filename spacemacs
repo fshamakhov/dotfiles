@@ -294,13 +294,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq gnus-secondary-select-methods
         '(
-          (nnimap "electron"
-                  (nnimap-address "imap.gmail.com")
-                  (nnimap-server-port 993)
-                  (nnimap-stream ssl)
-                  (nnir-search-engine imap)
-                  (nnimap-authinfo-file "~/.authinfo.gpg"))
-          (nnimap "fedor"
+          (nnimap "gmail"
                   (nnimap-address "imap.gmail.com")
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)
@@ -315,33 +309,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ))
 
   (setq gnus-parameters
-      '(("nnimap fedor:INBOX"
+      '(("nnimap gmail:INBOX"
          (display . all)
          (posting-style
           (name "Fedor Shamakhov")
           (address "fedor.shamakhov@gmail.com")
           (signature-file "~/.signature-fedor"))
          (expiry-target . delete))
-        ("nnimap fedor:[Gmail]/.*"
+        ("nnimap gmail:[Gmail]/.*"
          (display . all)
          (posting-style
           (name "Fedor Shamakhov")
           (address "fedor.shamakhov@gmail.com")
           (signature-file "~/.signature-fedor"))
-         (expiry-wait . never))
-        ("nnimap electron:INBOX"
-         (display . all)
-         (posting-style
-          (name "Fedor Shamakhov")
-          (address "electron160zeptocoulomb@gmail.com")
-          (signature-file "~/.signature-electron"))
-         (expiry-target . delete))
-        ("nnimap electron:[Gmail]/.*"
-         (display . all)
-         (posting-style
-          (name "Fedor Shamakhov")
-          (address "elector160zeptocoulomb@gmail.com")
-          (signature-file "~/.signature-electron"))
          (expiry-wait . never))
         ("nnimap yandex:INBOX"
          (display . all)
@@ -357,9 +337,22 @@ before packages are loaded. If you are unsure, you should try in setting them in
            (address "shamakhov.fyodor@yandex.ru")
            (signature-file "~/.signature-yandex"))
           (expiry-wait . never))))
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq sendmail-program "/usr/bin/msmtp")
-  (setq gnus-permanently-visible-groups ".*")
+
+  ;; Send email via Gmail:
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-default-smtp-server "smtp.gmail.com")
+
+  (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
+        gnus-message-archive-group "[Gmail]/Sent Mail")
+
+  ;; set return email address based on incoming email address
+  (setq gnus-posting-styles
+        '(((header "to" "fedor.shamakhov@gmail.com")
+           (address "fedor.shamakhov@gmail.com"))
+          ((header "to" "electron160zeptocoulomb@gmail.com")
+           (address "electron160zeptocoulomb@gmail.com"))
+          ((header "to" "shamakhov.fyodor@yandex.ru")
+           (address "shamakhov.fyodor@yandex.ru"))))
 
   ;; store email in ~/gmail directory
   (setq nnml-directory "~/mail")
