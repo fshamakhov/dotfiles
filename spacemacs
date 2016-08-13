@@ -294,16 +294,24 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq gnus-secondary-select-methods
         '(
-          (nnimap "gmail"
+          (nnimap "electron"
                   (nnimap-address "imap.gmail.com")
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)
-                  (nnir-search-engine imap))
+                  (nnir-search-engine imap)
+                  (nnimap-authinfo-file "~/.authinfo.gpg"))
+          (nnimap "fedor"
+                  (nnimap-address "imap.gmail.com")
+                  (nnimap-server-port 993)
+                  (nnimap-stream ssl)
+                  (nnir-search-engine imap)
+                  (nnimap-authinfo-file "~/.authinfo.gpg"))
           (nnimap "yandex"
                   (nnimap-address "imap.yandex.ru")
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)
-                  (nnir-search-engine imap))
+                  (nnir-search-engine imap)
+                  (nnimap-authinfo-file "~/.authinfo.gpg"))
           ))
 
   ;; Send email via Gmail:
