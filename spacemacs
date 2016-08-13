@@ -372,7 +372,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq browse-url-browser-function 'w3m-browse-url)
   (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
   (setq w3m-use-title-buffer-name t)
-  
+
   )
 
 (defun dotspacemacs/user-config ()
