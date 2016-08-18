@@ -27,6 +27,7 @@ values."
      w3m
      better-defaults
      emacs-lisp
+     extra-langs
      git
      markdown
      org
