@@ -61,3 +61,5 @@ wrapper(){
     [ $(($(date +%s) - start)) -le 1 ] || notify-send "Notification" "Long\
  running command \"$(echo $@)\" took $(($(date +%s) - start)) seconds to finish"
 }
+
+set -o emacs
