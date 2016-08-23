@@ -29,6 +29,8 @@ values."
      emacs-lisp
      extra-langs
      git
+     sql
+     html
      markdown
      org
      (shell :variables
@@ -258,6 +260,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
 
+  (setq-default
+
+   ;; js2-mode
+   js2-basic-offset 2
+   js-indent-level 2
+
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+
   (setq locale-coding-system 'utf-8)
 
   (if (boundp 'buffer-file-coding-system)
@@ -378,6 +393,14 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (require 'helm)
   (require 'w3m)
   (require 'w3m-load)
@@ -547,3 +570,15 @@ you should place your code here."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(paradox-github-token t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
