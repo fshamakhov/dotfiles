@@ -394,6 +394,8 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
   (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
