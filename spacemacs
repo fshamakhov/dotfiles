@@ -24,6 +24,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; auto-completion
+     auto-completion
      w3m
      better-defaults
      emacs-lisp
@@ -108,8 +109,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-light
-                         gotham
+   dotspacemacs-themes '(gotham
+                         spacemacs-light
                          spacemacs-dark
                          solarized-light
                          solarized-dark
@@ -254,6 +255,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (add-to-list 'load-path "~/.emacs.d/wmi/")
   (prefer-coding-system 'utf-8)
   (set-language-environment 'utf-8)
   (set-default-coding-systems 'utf-8)
@@ -393,6 +395,9 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+  (projectile-global-mode)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on)
   (require 'web-mode)
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -568,6 +573,7 @@ you should place your code here."
     "prevent original function from running; cleanup remnants"
     (setq w3m-modeline-separator ""
           w3m-modeline-title-string ""))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -577,6 +583,7 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(comint-completion-autolist t)
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
