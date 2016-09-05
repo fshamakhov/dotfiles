@@ -109,8 +109,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gotham
-                         spacemacs-light
+   dotspacemacs-themes '(spacemacs-light
+                         gotham
                          spacemacs-dark
                          solarized-light
                          solarized-dark
@@ -122,7 +122,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -265,15 +265,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default
 
    ;; js2-mode
-   js2-basic-offset 2
-   js-indent-level 2
-
+   js2-basic-offset 4
+   js-indent-level 4
    ;; web-mode
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
+   css-indent-offset 4
+   web-mode-markup-indent-offset 4
+   web-mode-css-indent-offset 4
+   web-mode-code-indent-offset 4
+   web-mode-attr-indent-offset 4)
 
   (setq locale-coding-system 'utf-8)
 
