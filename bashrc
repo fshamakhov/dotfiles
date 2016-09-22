@@ -8,6 +8,8 @@
 alias rm='rm -I'
 
 # color aliases
+alias grep="/usr/bin/grep $GREP_OPTIONS"
+unset GREP_OPTIONS
 alias sudo='sudo '
 alias ls='TERM=ansi ls --color=always'
 alias dmesg='dmesg --color=always'
@@ -21,7 +23,7 @@ alias мы-из.рф='vsbph250@80.78.250.176'
 alias rhl127pc='-Y fed@159.93.76.242'
 
 # mount with {d,f}mask
-alias mount='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
+alias mount-usb='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
 # PS1
 INPUT_COLOR="\[\033[0m\]"
 DIR_COLOR="\[\033[0;33m\]"
@@ -45,7 +47,8 @@ fi
 
 PS1="$LINE_COLOR$LINE_CORNER_1$LINE_VERTICAL$USER_NAME$AT_SYMBOL$HOST_NAME:$DIR_COLOR$DIR \n$LINE_COLOR$LINE_CORNER_2$LINE_VERTICAL $SYMBOL $INPUT_COLOR"
 HISTSIZE= HISTFILESIZE=
-export VISUAL="vim"
+export VISUAL="emc"
+export EDITOR="emc"
 export BARSSYS="/home/fed/BARS/trunk"
 
 #root
