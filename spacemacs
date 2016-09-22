@@ -122,7 +122,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -265,14 +265,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default
 
    ;; js2-mode
-   js2-basic-offset 4
-   js-indent-level 4
+   js2-basic-offset 2
+   js-indent-level 2
    ;; web-mode
-   css-indent-offset 4
-   web-mode-markup-indent-offset 4
-   web-mode-css-indent-offset 4
-   web-mode-code-indent-offset 4
-   web-mode-attr-indent-offset 4)
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
 
   (setq locale-coding-system 'utf-8)
 
@@ -304,7 +304,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; W3M view url new session in background
   (setq compilation-scroll-output t)
   (ansi-color-for-comint-mode-on)
-  (setq-default c-basic-offset 2)
+  (setq-default c-basic-offset 4)
   (setq helm-buffers-fuzzy-matching t)
 
   (setq user-mail-address	"fedor.shamakhov@gmail.com"
