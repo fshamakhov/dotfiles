@@ -24,6 +24,7 @@ alias rhl127pc='-Y fed@159.93.76.242'
 
 # mount with {d,f}mask
 alias mount-usb='mount -o dmask=022 -o fmask=133 -o uid=`id -u fed` -o gid=`id -u fed`'
+alias mount='mount -o uid=`id -u fed` -o gid=`id -u fed`'
 # PS1
 INPUT_COLOR="\[\033[0m\]"
 DIR_COLOR="\[\033[0;33m\]"
