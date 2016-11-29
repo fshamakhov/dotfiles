@@ -51,6 +51,7 @@ HISTSIZE= HISTFILESIZE=
 export VISUAL="vim"
 export EDITOR="vim"
 export BARSSYS="/home/fed/BARS/trunk"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
 #root
 source /opt/root-6.04.18/bin/thisroot.sh
