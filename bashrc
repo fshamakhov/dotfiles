@@ -48,13 +48,10 @@ fi
 
 PS1="$LINE_COLOR$LINE_CORNER_1$LINE_VERTICAL$USER_NAME$AT_SYMBOL$HOST_NAME:$DIR_COLOR$DIR \n$LINE_COLOR$LINE_CORNER_2$LINE_VERTICAL $SYMBOL $INPUT_COLOR"
 HISTSIZE= HISTFILESIZE=
-export VISUAL="vim"
-export EDITOR="vim"
 export BARSSYS="/home/fed/BARS/trunk"
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+#export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+export PATH="$PATH:$HOME/Documents/scripts/"
 
-#root
-source /opt/root-6.04.18/bin/thisroot.sh
 #steam
 alias steam=LD_PRELOAD="'/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so' steam"
 
@@ -66,3 +63,4 @@ wrapper(){
 }
 
 set -o emacs
+umask 0002
