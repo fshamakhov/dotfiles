@@ -50,7 +50,7 @@ PS1="$LINE_COLOR$LINE_CORNER_1$LINE_VERTICAL$USER_NAME$AT_SYMBOL$HOST_NAME:$DIR_
 HISTSIZE= HISTFILESIZE=
 export BARSSYS="/home/fed/BARS/trunk"
 #export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-export PATH="$PATH:/usr/bin/vendor_perl/:$HOME/Documents/scripts/"
+export PATH="$PATH:/usr/bin/vendor_perl/:$HOME/Documents/scripts/:$HOME/.config/composer/vendor/bin"
 
 #steam
 alias steam=LD_PRELOAD="'/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so' steam"
@@ -64,4 +64,10 @@ wrapper(){
 
 set -o emacs
 umask 0002
-alias steam-wine='wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe >/dev/null 2>&1 &'
+alias steam-wine='WINEDEBUG=-all wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe >/dev/null 2>&1 &'
+export VISUAL="vim"
+export WORKON_HOME=~/Envs
+source /usr/share/nvm/init-nvm.sh
+
+export API_ROOT=http://content.ng.test
+export REDIS_URL_SPLITTER=test
