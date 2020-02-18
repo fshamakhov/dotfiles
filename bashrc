@@ -38,12 +38,14 @@ get_abs_filename() {
 # Set up android sdk
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export ANDROID_HOME="$HOME/Android/Sdk"
-export PATH="$ANDROID_HOME:$ANDROID_HOME/tools/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
+export ANDROID_SDK_ROOT=${ANDROID_HOME}
+export ANDROID_NDK_ROOT="${ANDROID_HOME}/ndk/21.0.6113669"
+export PATH="${ANDROID_HOME}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
 
 export DEBFULLNAME="Fedor Shamakhov"
 export DEBEMAIL="fedor.shamakhov@gmail.com"
 
-export PATH="/home/fed/.pyenv/bin:$PATH"
+export PATH="/home/fed/.pyenv/bin:${PATH}"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
