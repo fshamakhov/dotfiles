@@ -52,3 +52,9 @@ fed
 # Python
 venv/
 .venv/
+
+# Web Development
+.env
+ormconfig.json
+apollo.config.js
+
