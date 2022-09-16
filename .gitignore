@@ -46,15 +46,18 @@ _build
 .DS_Store
 
 # personal
-fed.*
-fed
+tmp
 
 # Python
 venv/
 .venv/
 
 # Web Development
-.env
 ormconfig.json
 apollo.config.js
+.graphqlrc.yml
+.gradle
+
+# GraphQL
+.graphqlconfig
 
