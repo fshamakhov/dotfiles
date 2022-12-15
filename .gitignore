@@ -57,6 +57,7 @@ ormconfig.json
 apollo.config.js
 .graphqlrc.yml
 .gradle
+*.jshintrc
 
 # GraphQL
 .graphqlconfig
