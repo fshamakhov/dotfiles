@@ -1,0 +1,10 @@
+[user]
+	name = Fedor Shamakhov
+	email = fs@qrator.net
+[core]
+	excludesFile = ~/.gitignore
+	autocrlf = input
+[init]
+	defaultBranch = main
+[push]
+	followTags = true
